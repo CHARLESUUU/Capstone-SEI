@@ -1,4 +1,4 @@
-package com.cloudurable.kafka;
+package KafApp;
 import org.apache.kafka.clients.consumer.*;
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.common.serialization.LongDeserializer;
