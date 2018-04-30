@@ -4,15 +4,15 @@ import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.common.serialization.LongDeserializer;
 import org.apache.kafka.common.serialization.StringDeserializer;
 
-
+import java.util.*;
 import java.util.Collections;
 import java.util.Properties;
 
 public class ConApp{
 	private final static String TOPIC= "test";
 	//final local host
-	private final static String BOOTSTRAP_SERVERS= "localhost:9092,localhost:2181";
-
+	private final static String BOOTSTRAP_SERVERS= "localhost:9092";
+	public static ArrayList<String> msg= new ArrayList<String>();
 	public static Consumer<Long,String> createConsumer(){
 		final Properties props=new Properties();
 		props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,BOOTSTRAP_SERVERS);
@@ -26,7 +26,7 @@ public class ConApp{
 	}
 	static void runConsumer() throws InterruptedException{
 		final Consumer<Long,String> consumer=createConsumer();
-		final int giveUp=100;
+		final int giveUp=0;
 		int noRecordsCount=0;
 		while(true){
 			final ConsumerRecords<Long,String> consumerRecords=consumer.poll(1000);
@@ -36,9 +36,8 @@ public class ConApp{
 			else continue;
 			}
 			consumerRecords.forEach(record -> {
-            System.out.printf("Consumer Record:(%d, %s, %d, %d)\n",
-                    record.key(), record.value(),
-                    record.partition(), record.offset());
+            System.out.printf("%s\n", record.value());
+			msg.append(record.value());
             });
 			consumer.commitAsync();
 		}
@@ -47,7 +46,11 @@ public class ConApp{
 	}
 	public static void main(String... args) throws Exception {
         runConsumer();
+		for (String a:msg){
+			System.out.println(a+" ");
   }
+	
+}
 }
 
 	
