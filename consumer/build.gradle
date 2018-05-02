@@ -1,0 +1,20 @@
+group 'cloudurable-kafka'
+version '1.0-SNAPSHOT'
+apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'eclipse'
+mainClassName = 'KafApp.ConApp'
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.apache.kafka:kafka-clients:0.10.2.0'
+    compile 'ch.qos.logback:logback-classic:1.2.2'
+	compile 'org.springframework.kafka:spring-kafka:1.0.0.RELEASE'
+	compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.11'
+	
+}
+
